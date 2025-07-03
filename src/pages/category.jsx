@@ -12,26 +12,32 @@ const Category = () => {
   console.log("Category from URL:", category);
 
   const fetchSearchResults = async () => {
-    try {
-      console.log(`Fetching GIFs for category: ${category}`); // Log category request
-      const { data } = await gf.gifs(category);// Prevent caching
+    setLoading(true); 
 
-      console.log("Received GIF data:", data); // Log received data
-      setSearchResults(data);
-    } catch (error) {
-      console.error("Error fetching GIFs:", error);
+    try {
+        const { data } = await gf.search(query, {
+            sort: "relevant",
+            lang: 'en',
+            type: filter,
+            limit: 20,
+        });
+        setSearchResults(data);
+    } catch (err) {
+        console.error("Search failed:", err);
     }
-  };
+
+    setLoading(false); 
+};
+
 
   useEffect(() => {
     console.log("useEffect triggered! Category received from URL:", category);
     
     if (category) {
-      setSearchResults([]); // Clear previous results
-      fetchSearchResults(); // Call the function properly
+      setSearchResults([]);
+      fetchSearchResults(); 
     }
-  }, [category]); // Run whenever category changes
-
+  }, [category]); 
   return (
     <div className="flex flex-col sm:flex-row gap-5 my-4">
       <div className="w-full sm:w-72">

@@ -24,16 +24,18 @@ const Header = () => {
         <nav className="relative">
             <div className="flex gap-4 justify-between items-center mb-2">
                 <Link to="/" className="flex items-center gap-2">
-                    <img src="/logo.svg" className="w-8" alt="Giphy Logo" />
-                    <h1 className="text-3xl font-bold tracking-tight cursor-pointer">Lol!</h1>
-                </Link>
+                <span className="text-3xl hover:rotate-12 transition-all">🥴</span>
+                <h1 className="text-3xl font-bold tracking-tight cursor-pointer">LOL!</h1>
+            </Link>
+
 
                 <div className="font-bold text-md flex gap-2 items-center">
-                    {/* Render categories */}
+                    
                     {categories.slice(0, 5).map((category, index) => (
                         <Link 
                             key={category.name_encoded || index} 
-                            to={`/category/${encodeURIComponent(category.name_encoded)}`}
+                            to={`/search/${encodeURIComponent(category.name_encoded)}`} 
+
                             className="px-1 py-1 hover:gradient border-b-4 hidden lg:block"
                         >
                             {category.name}
@@ -59,7 +61,7 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* Dropdown Box (Properly Positioned) */}
+            
             {showCategories && (
                 <div className="absolute left-0 right-0 top-full mt-2 px-10 pt-6 pb-9 w-full gradient z-20">
                     <span className="text-3xl font-extrabold">Categories</span>
@@ -69,7 +71,8 @@ const Header = () => {
                             <Link 
                                 key={category.name_encoded || index} 
                                 className="font-bold" 
-                                to={`/category/${encodeURIComponent(category.name_encoded)}`}
+                                to={`/search/${encodeURIComponent(category.name_encoded)}`} 
+
                             >
                                 {category.name}
                             </Link>
@@ -78,7 +81,7 @@ const Header = () => {
                 </div>
             )}
             
-                {/*search*/}
+                
                 <GifSearch/>
 
         
