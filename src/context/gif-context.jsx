@@ -13,21 +13,20 @@ const GifProvider = ({children}) => {
    const gf = new GiphyFetch(import.meta.env.VITE_GIPHY_KEY);
    
 
-   const addToFavorites = (id) => {
-    const gifId = id.toString();
-    if(favorites.includes(gifId)) {
-        const updatedFavorites = favorites.filter(
-            (itemId) => itemId !== gifId
-        );
-        localStorage.setItem("favoriteGIFs", JSON.stringify(updatedFavorites));
-        setFavorites(updatedFavorites);
-    } else {
-        const updatedFavorites = [...favorites,gifId]
-        updatedFavorites.push(id);
-        localStorage.setItem("favoriteGIFs",JSON.stringify(updatedFavorites));
-        setFavorites(updatedFavorites);
-    }
-   };
+  const addToFavorites = (id) => {
+  const gifId = id.toString();
+  let updatedFavorites;
+  
+  if (favorites.includes(gifId)) {
+    updatedFavorites = favorites.filter(itemId => itemId !== gifId);
+  } else {
+    updatedFavorites = [...favorites, gifId];
+  }
+
+  localStorage.setItem("favoriteGIFs", JSON.stringify(updatedFavorites));
+  setFavorites(updatedFavorites);
+};
+
 
    useEffect(()=> {
    const favorites = JSON.parse(localStorage.getItem("favoriteGIFs")) || [];
